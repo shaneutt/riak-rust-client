@@ -1,0 +1,69 @@
+#!/bin/bash
+
+set -eo pipefail
+
+TEST_NAME='riak-rust-client-test'
+RIAK_IMAGE='shaneutt/riak-kv:latest'
+
+test_cleanup () {
+    echo "Removing containers..."
+    docker rm -f ${TEST_NAME}-{2,3,4,5,6} 1>/dev/null
+
+    echo "Removing network..."
+    docker network rm $TEST_NAME 1>/dev/null
+}
+
+setup_yokozuna () {
+    for i in $(seq 2 6)
+    do
+        docker exec -it ${TEST_NAME}-$i yum makecache fast -y -q
+        docker exec -it ${TEST_NAME}-$i yum install java-1.8.0-openjdk -y -q
+    done
+
+    for i in $(seq 2 6)
+    do
+        docker exec -it ${TEST_NAME}-$i sed -i 's/search = off/search = on/g' /etc/riak/riak.conf
+        docker exec -it ${TEST_NAME}-$i sed -i 's/storage_backend = bitcask/storage_backend = leveldb/g' /etc/riak/riak.conf
+        docker exec -it ${TEST_NAME}-$i riak stop
+        docker exec -it ${TEST_NAME}-$i riak start
+    done
+
+    for i in $(seq 2 6)
+    do
+        docker exec -it ${TEST_NAME}-$i riak-admin wait_for_service riak_kv
+    done
+}
+
+test_setup () {
+    echo "Creating network..."
+    docker network create --subnet 10.0.0.0/24 $TEST_NAME
+
+    echo "Creating containers..."
+    for i in $(seq 2 6)
+    do
+        docker run -d --name ${TEST_NAME}-$i --network $TEST_NAME --ip 10.0.0.$i $RIAK_IMAGE
+    done
+
+    echo "Waiting for riak_kv service..."
+    for i in $(seq 2 6)
+    do
+        docker exec -it ${TEST_NAME}-$i riak-admin wait_for_service riak_kv
+    done
+
+    echo "Joining nodes..."
+    for i in $(seq 3 6)
+    do
+        docker exec -it ${TEST_NAME}-$i riak-admin cluster join riak@10.0.0.2
+    done
+
+    $(dirname "${BASH_SOURCE[0]}")/node-setup ${TEST_NAME}-2
+
+    setup_yokozuna
+}
+
+if [ "$1" == "cleanup" ]
+then
+    test_cleanup
+else
+    test_setup || test_cleanup
+fi

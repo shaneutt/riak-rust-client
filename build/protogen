@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o nounset
+
+if ! hash protoc >/dev/null 2>&1
+then
+    echo "protoc command must be in PATH." 1>&2
+    exit 1
+fi
+
+if ! hash protoc-gen-rust >/dev/null 2>&1
+then
+    echo "protoc-gen-rust command must be in PATH." 1>&2
+    echo "You probably need to run 'cargo install protobuf'" 1>&2
+    exit 1
+fi
+
+declare -r projdir="${1:-unknown_projdir}"
+if [[ ! -d $projdir ]]
+then
+    echo "First argument must be project directory." 2>&1
+    exit 1
+fi
+
+declare -r rpb_path="$projdir/src/rpb/"
+declare -r proto_path="$projdir/riak_pb/src"
+if [[ ! -d $proto_path ]]
+then
+    echo "Could not find $proto_path." 2>&1
+    exit 1
+fi
+
+for proto_file in $proto_path/*.proto
+do
+    proto_file_basename="$(basename -s '.proto' $proto_file)"
+    protoc --rust_out="$rpb_path" --proto_path="$proto_path" "$proto_file"
+done

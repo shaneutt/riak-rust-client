@@ -1,0 +1,34 @@
+#!/bin/bash
+
+CONTAINER="$1"
+
+if [ -z "$1" ]
+then
+    echo "ERROR: no container provided to $0"
+    exit 1
+fi
+
+# cluster
+docker exec -it ${CONTAINER} riak-admin cluster plan
+docker exec -it ${CONTAINER} riak-admin transfer-limit 320
+docker exec -it ${CONTAINER} riak-admin cluster commit
+docker exec -it ${CONTAINER} riak-admin cluster status
+
+# bucket types
+docker exec -it ${CONTAINER} riak-admin bucket-type create testbuckettype
+docker exec -it ${CONTAINER} riak-admin bucket-type activate testbuckettype
+docker exec -it ${CONTAINER} riak-admin bucket-type create tests/object.rs
+docker exec -it ${CONTAINER} riak-admin bucket-type activate tests/object.rs
+docker exec -it ${CONTAINER} riak-admin bucket-type create 2itest
+docker exec -it ${CONTAINER} riak-admin bucket-type activate 2itest
+
+
+# data types
+docker exec -it ${CONTAINER} riak-admin bucket-type create maps '{"props":{"datatype":"map"}}'
+docker exec -it ${CONTAINER} riak-admin bucket-type create sets '{"props":{"datatype":"set"}}'
+docker exec -it ${CONTAINER} riak-admin bucket-type create counters '{"props":{"datatype":"counter"}}'
+docker exec -it ${CONTAINER} riak-admin bucket-type create hlls  '{"props":{"datatype":"hll"}}'
+docker exec -it ${CONTAINER} riak-admin bucket-type activate maps
+docker exec -it ${CONTAINER} riak-admin bucket-type activate sets
+docker exec -it ${CONTAINER} riak-admin bucket-type activate counters
+docker exec -it ${CONTAINER} riak-admin bucket-type activate hlls

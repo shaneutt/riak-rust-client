@@ -1,0 +1,13 @@
+[package]
+name = "riak"
+description = "A Riak client for Rust."
+homepage = "https://github.com/shaneutt/riak-rust-client"
+repository = "https://github.com/shaneutt/riak-rust-client"
+keywords = ["riak", "riak-kv", "riak-ts", "nosql", "client"]
+license = "Apache-2.0"
+version = "0.3.4"
+authors = ["Shane Utt <shaneutt@linux.com>"]
+
+[dependencies]
+protobuf = "1.1.0"
+log = "0.3.6"
