@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/shaneutt/riak-rust-client.svg?branch=master)](https://travis-ci.org/shaneutt/riak-rust-client)
 [![Docs](https://img.shields.io/badge/docs-docs.rs-ff69b4.svg)](https://docs.rs/riak/)
 [![crates.io](https://img.shields.io/crates/v/riak.svg)](https://crates.io/crates/riak)
-[![License](https://img.shields.io/crates/l/riak.svg)](https://raw.githubusercontent.com/shaneutt/riak-rust-client/master/LICENSE)
+[![License](https://img.shields.io/badge/license-apache-blue.svg)](https://raw.githubusercontent.com/shaneutt/riak-rust-client/master/LICENSE)
 
 A [Riak](https://github.com/basho/riak) client for Rust.
 
