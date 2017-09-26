@@ -11,6 +11,8 @@ Full documentation [available on docs.rs](https://docs.rs/riak/).
 
 # WARNINGS!
 
+* Development is on hold while Riak has been changing ownership
+
 * Riak TS features are not yet implemented
 
 * This client is still considered under development and is not production ready
