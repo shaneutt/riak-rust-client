@@ -60,9 +60,3 @@ store_request.set_key("testkey");
 // store the object
 riak.store_object(store_request).unwrap();
 ```
-
-## Contributing
-
-For issues please be as verbose as you can.
-
-PRs welcome.
