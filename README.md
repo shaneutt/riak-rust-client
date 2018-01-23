@@ -1,3 +1,7 @@
+# READ THIS FIRST
+
+This client has been shelfed, and archived. I have no intention currently of continuing development for it due to the state of Riak itself. Because it got shelved so quickly after I started it, it never matured or became production ready. This client should be considered unsuitable for production.
+
 # riak-rust-client
 
 [![Build Status](https://travis-ci.org/shaneutt/riak-rust-client.svg?branch=master)](https://travis-ci.org/shaneutt/riak-rust-client)
@@ -8,14 +12,6 @@
 A [Riak](https://github.com/basho/riak) client for Rust.
 
 Full documentation [available on docs.rs](https://docs.rs/riak/).
-
-# WARNINGS!
-
-* Development is on hold while Riak has been changing ownership
-
-* Riak TS features are not yet implemented
-
-* This client is still considered under development and is not production ready
 
 # Description
 
