@@ -1,3 +1,7 @@
+# Important Warning
+
+When this client was originally written I was working at Basho technologies (we were the the original developers of Riak). Shortly after I started this client the company ended up [having significant problems][end] and I ended up leaving the company. I shelved and archived this repository uncertain of Riak's future and otherwise not having a reason to continue developing it. 6 years later it came to my attention that there is some active usage and interest in the continuation of this client, so it was un-archived and made available for forking. Where it goes from here depends on interest: if you're interested in contributing and helping move it forward I'm open to [new issues][new], [discussions][disc] and [PRs][prs]. If contributions and interest keeps coming in I will consider quantifying and organizing a `v1` release of the client. Otherwise if there's not much engagement in the coming year I'll likely archive it once again.
+
 # riak-rust-client
 
 [![Build Status](https://github.com/shaneutt/riak-rust-client/actions/workflows/rust.yml/badge.svg)](https://github.com/shaneutt/riak-rust-client/actions/workflows/rust.yml)
@@ -8,10 +12,6 @@
 A [Riak](https://github.com/basho/riak) client for Rust.
 
 Full documentation [available on docs.rs](https://docs.rs/riak/).
-
-# Important Notes
-
-When this client was originally written I was working at Basho technologies (we were the the original developers of Riak). Shortly after I started this client the company ended up [having significant problems][end] and I ended up leaving the company. I shelved and archived this repository uncertain of Riak's future and otherwise not having a reason to continue developing it. 6 years later it came to my attention that there is some active usage and interest in the continuation of this client, so it was un-archived and made available for forking. Where it goes from here depends on interest: if you're interested in contributing and helping move it forward I'm open to [new issues][new], [discussions][disc] and [PRs][prs]. If contributions and interest keeps coming in I will consider quantifying and organizing a `v1` release of the client. Otherwise if there's not much engagement in the coming year I'll likely archive it once again.
 
 [end]:https://www.theregister.com/2017/07/31/end_of_the_road_for_basho_as_court_puts_biz_into_receivership/
 [new]:https://github.com/shaneutt/riak-rust-client/issues/new
